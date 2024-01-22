@@ -15,23 +15,23 @@ public class Controller {
         m_Joystick.setYChannel(ControllerConst.Y_CHANNEL);
         m_Joystick.setZChannel(ControllerConst.Z_CHANNEL);
 
-        new Thread(() -> {
-            while (true) {
-                double offset = getTrueTheta() - theta;
-                if (abs(offset) < ControllerConst.THETA_TURN_PER_FRAME) {
-                    theta += offset;
-                } else if (offset < 0) {
-                    theta -= ControllerConst.THETA_TURN_PER_FRAME;
-                } else {
-                    theta += ControllerConst.THETA_TURN_PER_FRAME;
-                }
-                // to make sure theta is in range [-PI, PI]
-                theta = (theta + 3*PI) % (2*PI) - PI;
-                try {
-                    Thread.sleep(ControllerConst.THETA_UPDATE_TIME);
-                } catch (InterruptedException ignored) { }
-            }
-        }).start();
+//        new Thread(() -> {
+//            while (true) {
+//                double offset = getTrueTheta() - theta;
+//                if (abs(offset) < ControllerConst.THETA_TURN_PER_FRAME) {
+//                    theta += offset;
+//                } else if (offset < 0) {
+//                    theta -= ControllerConst.THETA_TURN_PER_FRAME;
+//                } else {
+//                    theta += ControllerConst.THETA_TURN_PER_FRAME;
+//                }
+//                // to make sure theta is in range [-PI, PI]
+//                theta = (theta + 3*PI) % (2*PI) - PI;
+//                try {
+//                    Thread.sleep(ControllerConst.THETA_UPDATE_TIME);
+//                } catch (InterruptedException ignored) { }
+//            }
+//        }).start();
     }
 
     private double smooth(double startPoint, double currentPoint) {
@@ -58,18 +58,27 @@ public class Controller {
         return 0.0;
     }
 
+    private double lastTrueTheta = 0.0;
     public double getTrueTheta() {
-        if (getH() > 0.0)
-            return atan(getV() / getH()) - PI / 2;
+        if (getH() > 0.0) {
+            lastTrueTheta = atan(getV() / getH()) - PI / 2;
+            return lastTrueTheta;
+        }
 
-        if (getH() < 0.0)
-            return PI + atan(getV() / getH()) - PI / 2;
+        if (getH() < 0.0) {
+            lastTrueTheta = PI + atan(getV() / getH()) - PI / 2;
+            return lastTrueTheta;
+        }
 
-        return (getV() >= 0 ? PI / 2 : 3 * PI / 2) - PI / 2;
+        if (getV() == 0.0)
+            return lastTrueTheta;
+
+        lastTrueTheta = (getV() >= 0 ? PI / 2 : 3 * PI / 2) - PI / 2;
+        return lastTrueTheta;
     }
 
-    private double theta = 0.0;
-    public double getTheta() { return theta; }
+//    private double theta = 0.0;
+    public double getTheta() { return getTrueTheta(); }
 
     public double getRadius() {
         return sqrt(pow(getV(), 2) + pow(getH(), 2));

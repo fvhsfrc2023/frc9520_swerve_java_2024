@@ -59,6 +59,7 @@ public class DriveSystem extends SubsystemBase {
         theta *= sign;
         theta += DriveSystemConst.TALONFX_THETAMOTOR_COEF / 2;
         theta %= DriveSystemConst.TALONFX_THETAMOTOR_COEF;
+        theta -= DriveSystemConst.TALONFX_THETAMOTOR_COEF / 2;
         theta *= sign;
         return theta;
     }
@@ -77,7 +78,7 @@ public class DriveSystem extends SubsystemBase {
                 }
             }
 
-            return offset * DriveSystemConst.THETA_DIRECTION_CORRECTION_COEF;
+            return min(offset * DriveSystemConst.THETA_DIRECTION_CORRECTION_COEF, DriveSystemConst.THETA_DIRECTION_CORRECTION_MAX);
         }
     }
 
@@ -98,6 +99,11 @@ public class DriveSystem extends SubsystemBase {
 
     public void drive(double power, double theta, double offset) {
         updateTheta(theta * DriveSystemConst.TALONFX_THETAMOTOR_COEF / 2);
+
+        if (power == 0.0 && offset != 0.0) {
+            power = offset;
+            offset = offset > 0 ? 1.0 : -1.0;
+        }
 
         var leftPower = power * min(2 * offset + 1, 1.0);
         var rightPower = power * min(-2 * offset + 1, 1.0);

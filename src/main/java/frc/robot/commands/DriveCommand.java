@@ -28,19 +28,10 @@ public class DriveCommand extends Command {
     public void execute() {
         driveSystem.drive(
                 controller.getRadius(),
-//                Robot.controller.getTheta() / PI / 2,
-                controller.getZ(),
+                controller.getTheta() / PI,
+//                controller.getZ(),
                 controller.getZ());
 
-        if (controller.getButtonB()) {
-            var motor = driveSystem.powerMotorFR;
-            motor.setPosition(motor.getPosition().getValue() + Constants.DriveSystemConst.TALONFX_THETAMOTOR_COEF);
-        }
-
-        if (controller.getButtonA()) {
-            var motor = driveSystem.powerMotorFR;
-            motor.setPosition(motor.getPosition().getValue() + Constants.DriveSystemConst.TALONFX_THETAMOTOR_COEF / 8);
-        }
 
         SmartDashboard.putNumber("radius", controller.getRadius());
     }

@@ -28,10 +28,11 @@ public final class Constants
         public static final double THETA_P = 2.0;
         public static final double THETA_I = 100.0;
         public static final double THETA_D = 0.02;
-        public static final double TALONFX_THETAMOTOR_COEF = 21.0;
+        public static final double TALONFX_THETAMOTOR_COEF = 21.65;
 
-        public static final double THETA_DIRECTION_ERROR_ZONE = 0.1;
-        public static final double THETA_DIRECTION_CORRECTION_COEF = 0.5;
+        public static final double THETA_DIRECTION_ERROR_ZONE = 0.0001;
+        public static final double THETA_DIRECTION_CORRECTION_COEF = 0.1;
+        public static final double THETA_DIRECTION_CORRECTION_MAX = 0.5;
     }
 
     public static class ControllerConst {
@@ -41,9 +42,9 @@ public final class Constants
         public static final int Y_CHANNEL = 1;
         public static final int Z_CHANNEL = 4;
 
-        public static final double X_DEAD_ZONE = 0.0;
-        public static final double Y_DEAD_ZONE = 0.0;
-        public static final double Z_DEAD_ZONE = 0.01;
+        public static final double X_DEAD_ZONE = 0.02;
+        public static final double Y_DEAD_ZONE = 0.02;
+        public static final double Z_DEAD_ZONE = 0.02;
 
         public static final double R_DEAD_ZONE = 0.05;
 
