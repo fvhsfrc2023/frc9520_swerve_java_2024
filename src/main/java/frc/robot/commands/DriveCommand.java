@@ -21,7 +21,7 @@ public class DriveCommand extends Command {
 
     @Override
     public void initialize() {
-        driveSystem.setZero();
+//        driveSystem.setZero();
     }
 
     @Override
@@ -31,6 +31,9 @@ public class DriveCommand extends Command {
                 controller.getTheta() / PI,
 //                controller.getZ(),
                 controller.getZ());
+
+        if (controller.getButtonA())
+            driveSystem.setZero();
 
 
         SmartDashboard.putNumber("radius", controller.getRadius());
