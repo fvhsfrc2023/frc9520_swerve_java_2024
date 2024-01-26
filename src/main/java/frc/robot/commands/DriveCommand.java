@@ -13,6 +13,8 @@ public class DriveCommand extends Command {
     private final DriveSystem driveSystem;
     private final Controller controller;
 
+    private boolean brakeMode = true;
+
     public DriveCommand(DriveSystem _driveSystem, Controller _controller) {
         driveSystem = _driveSystem;
         controller = _controller;
@@ -35,7 +37,13 @@ public class DriveCommand extends Command {
         if (controller.getButtonA())
             driveSystem.setZero();
 
+        if (controller.getButtonB()) {
+            brakeMode = !brakeMode;
+            driveSystem.setBrakeMode(brakeMode);
+        }
 
+
+        SmartDashboard.putBoolean("brakeMode", brakeMode);
         SmartDashboard.putNumber("radius", controller.getRadius());
     }
 }
