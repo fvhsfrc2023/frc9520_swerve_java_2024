@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveSystemConst;
@@ -94,6 +95,12 @@ public class DriveSystem extends SubsystemBase {
     public void setZero() {
         for (var motor: thetaMotors) {
             motor.setPosition(0.0);
+        }
+    }
+
+    public void setBrakeMode(boolean brake) {
+        for (var motor: thetaMotors) {
+            motor.setNeutralMode(brake ? NeutralModeValue.Brake : NeutralModeValue.Coast);
         }
     }
 
