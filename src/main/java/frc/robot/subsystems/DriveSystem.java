@@ -10,7 +10,7 @@ import frc.robot.Utils.MotorUtils;
 import static java.lang.Math.*;
 
 public class DriveSystem extends SubsystemBase {
-
+//2 motors per wheel, these assign the motors that spin the wheels
     public final TalonFX powerMotorFL = new TalonFX(2);
     public final TalonFX powerMotorFR = new TalonFX(7);
     public final TalonFX powerMotorRL = new TalonFX(3);
@@ -22,6 +22,7 @@ public class DriveSystem extends SubsystemBase {
             powerMotorRR
     };
 
+    //2nd motors per wheel, these assign the motors that turn the wheels
     public final TalonFX thetaMotorFL = new TalonFX(1);
     public final TalonFX thetaMotorFR = new TalonFX(6);
     public final TalonFX thetaMotorRL = new TalonFX(4);
@@ -33,7 +34,7 @@ public class DriveSystem extends SubsystemBase {
             thetaMotorRR
     };
 
-
+//This actually assigns the motors to the configs
     public DriveSystem() {
         for (var motor: powerMotors) {
             MotorUtils.configureMotor(
@@ -44,6 +45,7 @@ public class DriveSystem extends SubsystemBase {
             );
         }
 
+    //does the same as above for the theta motors, or turning motors
         for (var motor: thetaMotors) {
             MotorUtils.configureMotor(
                     motor,
@@ -54,9 +56,11 @@ public class DriveSystem extends SubsystemBase {
         }
     }
 
-
+/**determines the most efficient turning radius for the robot
+ex: instead of turning 270 degrees, it only turns 90 degrees (unit circle things)
+*/
     private double roundTheta(double theta) {
-        double sign = theta > 0 ? 1 : -1;
+        double sign = theta > 0 ? 1 : -1; // #1 ? #2 : #3 <- is if the #1 is true then use the #2, else use the #3 
         theta *= sign;
         theta += DriveSystemConst.TALONFX_THETAMOTOR_COEF / 2;
         theta %= DriveSystemConst.TALONFX_THETAMOTOR_COEF;
@@ -65,6 +69,7 @@ public class DriveSystem extends SubsystemBase {
         return theta;
     }
 
+    
     private double calcSpeed(double target, double current) {
         if (abs(current - target) < DriveSystemConst.THETA_DIRECTION_ERROR_ZONE) {
             return 0.0;
@@ -92,12 +97,14 @@ public class DriveSystem extends SubsystemBase {
         }
     }
 
+    //resets the position the the theta motors to 0
     public void setZero() {
         for (var motor: thetaMotors) {
             motor.setPosition(0.0);
         }
     }
 
+    
     public void setBrakeMode(boolean brake) {
         for (var motor: thetaMotors) {
             motor.setNeutralMode(brake ? NeutralModeValue.Brake : NeutralModeValue.Coast);
