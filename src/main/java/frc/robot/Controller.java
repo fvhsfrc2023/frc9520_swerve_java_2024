@@ -35,7 +35,7 @@ public class Controller {
 //        }).start();
     }
 
-    private double smooth(double startPoint, double currentPoint) {  //This  
+    private double smooth(double startPoint, double currentPoint) {  //This takes the slope and checks it and takes the value of 1 - the starting point of the slope 
         double slope = 1 / (1 - startPoint);
 
         return currentPoint * slope + -startPoint * slope;
