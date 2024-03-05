@@ -36,17 +36,17 @@ public final class Constants
     }
 
     public static class ControllerConst {
-        public static final int DRIVE_JOYSTICK_PORT = 0;
+        public static final int DRIVE_JOYSTICK_PORT = 0; //this is the joystick varablie checks to see if the joystick is in port 0
 
-        public static final int X_CHANNEL = 0;
-        public static final int Y_CHANNEL = 1;
-        public static final int Z_CHANNEL = 4;
+        public static final int X_CHANNEL = 0; //this var makes the vaule of this be set to 0 on start
+        public static final int Y_CHANNEL = 1; //this var makes the vaule of this be set to 1 on start
+        public static final int Z_CHANNEL = 4; //thus var makes the vaule of this be set to 4 on start
 
-        public static final double X_DEAD_ZONE = 0.02;
-        public static final double Y_DEAD_ZONE = 0.02;
-        public static final double Z_DEAD_ZONE = 0.02;
+        public static final double X_DEAD_ZONE = 0.02; //this sets the X value dead zone to 0.02 for the controller
+        public static final double Y_DEAD_ZONE = 0.02; //this sets the Y value dead zone to o.02 for the controller
+        public static final double Z_DEAD_ZONE = 0.02; //this sets the Z value dead zone to 0.02 for the controller
 
-        public static final double R_DEAD_ZONE = 0.05;
+        public static final double R_DEAD_ZONE = 0.05; //this sets the Rotate dead zone to 0.05 for the controller
 
         public static final double THETA_TURN_PER_FRAME = PI / 6;
         public static final long THETA_UPDATE_TIME = 50;
