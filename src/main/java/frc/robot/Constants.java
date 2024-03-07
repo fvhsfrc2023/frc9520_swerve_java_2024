@@ -19,6 +19,7 @@ public final class Constants
 {
     public static final int CAN_TIMEOUT_MS = 10;
 
+    //The constants used in the DriveSystem subclass
     public static class DriveSystemConst {
 
         public static final double POWER_P = 2.0;
@@ -34,7 +35,7 @@ public final class Constants
         public static final double THETA_DIRECTION_CORRECTION_COEF = 0.1;
         public static final double THETA_DIRECTION_CORRECTION_MAX = 0.5;
     }
-
+     //The constants used in the DriveSystem subclass
     public static class ControllerConst {
         public static final int DRIVE_JOYSTICK_PORT = 0; //this is the joystick varablie checks to see if the joystick is in port 0
 
