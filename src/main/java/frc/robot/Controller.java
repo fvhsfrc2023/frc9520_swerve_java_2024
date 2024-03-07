@@ -84,6 +84,7 @@ public class Controller {
 
     public double getRadius() {
         return sqrt(pow(getV(), 2) + pow(getH(), 2)); //this gets the square root y and then powers the y value twices and adds the value of X power twices
+        // I assume that this controls the power levels based on distance from zero on joycon - bucky
     }
 
     public boolean getButtonB() {
