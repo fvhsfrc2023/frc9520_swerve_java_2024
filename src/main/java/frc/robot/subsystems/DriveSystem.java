@@ -56,9 +56,8 @@ public class DriveSystem extends SubsystemBase {
         }
     }
 
-/**determines the most efficient turning radius for the robot
-ex: instead of turning 270 degrees, it only turns 90 degrees (unit circle things)
-*/
+
+// rounds the target turning angle 
     private double roundTheta(double theta) {
         double sign = theta > 0 ? 1 : -1; // #1 ? #2 : #3 <- is if the #1 is true then use the #2, else use the #3 
         theta *= sign;
@@ -69,7 +68,9 @@ ex: instead of turning 270 degrees, it only turns 90 degrees (unit circle things
         return theta;
     }
 
-    
+    /** Compares the target angle to the current angle and determines the angle to turn,
+        ex: at 0 wanting to turn 270 - instead of turning 270 degrees, it turns 90 degrees.
+    */
     private double calcSpeed(double target, double current) {
         if (abs(current - target) < DriveSystemConst.THETA_DIRECTION_ERROR_ZONE) {
             return 0.0;
@@ -88,6 +89,7 @@ ex: instead of turning 270 degrees, it only turns 90 degrees (unit circle things
         }
     }
 
+    //updates the angle of the wheels to the SmartDashboard 
     private void updateTheta(double theta) {
         SmartDashboard.putNumber("DriveSystem: theta", theta);
         SmartDashboard.putNumber("DriveSystem: thetaMotorFR.position", thetaMotorFR.getPosition().getValue());
@@ -104,27 +106,31 @@ ex: instead of turning 270 degrees, it only turns 90 degrees (unit circle things
         }
     }
 
-    
+    //sets the motors to brake or coast
     public void setBrakeMode(boolean brake) {
         for (var motor: thetaMotors) {
             motor.setNeutralMode(brake ? NeutralModeValue.Brake : NeutralModeValue.Coast);
         }
     }
 
+    //sets the power of the motors to make the robot move
     public void drive(double power, double theta, double offset) {
         updateTheta(theta * DriveSystemConst.TALONFX_THETAMOTOR_COEF / 2);
-
+        
         if (power == 0.0 && offset != 0.0) {
             power = offset;
             offset = offset > 0 ? 1.0 : -1.0;
         }
 
+        //determines and sets the power of the left and right sides
         var leftPower = power * min(2 * offset + 1, 1.0);
         var rightPower = power * min(-2 * offset + 1, 1.0);
 
+        //updates the SmartDashboard to have the leftPower and rightPower
         SmartDashboard.putNumber("leftPower", leftPower);
         SmartDashboard.putNumber("rightPower", rightPower);
 
+        //sets the power
         powerMotorFL.set(leftPower);
         powerMotorRL.set(leftPower);
         powerMotorFR.set(rightPower);
