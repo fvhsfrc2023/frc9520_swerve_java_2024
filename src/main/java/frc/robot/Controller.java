@@ -61,18 +61,18 @@ public class Controller {
 
     private double lastTrueTheta = 0.0;
     public double getTrueTheta() {
-        if (getH() > 0.0) { //this gets the value of H and checks if its greater than 0
-            lastTrueTheta = atan(getV() / getH()) - PI / 2; //if so it gets the arc tan of the y value and div. by the x value sub. by PIE div. by 2
+        if (getH() > 0.0) {
+            lastTrueTheta = atan(getV() / getH()) - PI / 2; //if h>0, it gets the arc tan of the y value and div. by the x value sub. by PIE div. by 2
             return lastTrueTheta;
         }
 
-        if (getH() < 0.0) { //this gets the value of H and checks if its less than 0
-            lastTrueTheta = PI + atan(getV() / getH()) - PI / 2; //if so it adds PIE and gets the arc tan of the x value and div. by the x value sub. by PIE div. by 2
+        if (getH() < 0.0) {
+            lastTrueTheta = PI + atan(getV() / getH()) - PI / 2; //if h<0 it adds PIE and gets the arc tan of the x value and div. by the x value sub. by PIE div. by 2
             return lastTrueTheta;
         }
 
         if (getV() == 0.0) //this checks the value of Y and sees if its equal to zero than it returns itself 
-            return lastTrueTheta;
+            return lastTrueTheta; //should this be also H, as right now there's no case for h==0??
 
         lastTrueTheta = (getV() >= 0 ? PI / 2 : 3 * PI / 2) - PI / 2; //this checks the returned value and checks if the Y value is greater than or equal to the value of 0 
         //it returns PIE/2 or if not it returns 3 * PIE/2 - PI/2
