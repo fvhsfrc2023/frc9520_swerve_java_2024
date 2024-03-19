@@ -43,12 +43,14 @@ public final class Constants
         public static final int Y_CHANNEL = 1; //this var makes the vaule of this be set to 1 on start
         public static final int Z_CHANNEL = 4; //thus var makes the vaule of this be set to 4 on start
 
-        public static final double X_DEAD_ZONE = 0.02; //this sets the X value dead zone to 0.02 for the controller
-        public static final double Y_DEAD_ZONE = 0.02; //this sets the Y value dead zone to o.02 for the controller
-        public static final double Z_DEAD_ZONE = 0.02; //this sets the Z value dead zone to 0.02 for the controller
+        //Deadzone limits for the x, y, & z axes respectively
+        public static final double X_DEAD_ZONE = 0.02;
+        public static final double Y_DEAD_ZONE = 0.02;
+        public static final double Z_DEAD_ZONE = 0.02;
 
         public static final double R_DEAD_ZONE = 0.05; //this sets the Rotate dead zone to 0.05 for the controller
 
+        //theta constants (believe to associate with gear ratios, may be wrong)
         public static final double THETA_TURN_PER_FRAME = PI / 6;
         public static final long THETA_UPDATE_TIME = 50;
     }
